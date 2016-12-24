@@ -58,7 +58,7 @@
 	<div id="rightContent">
 	<h3>Добавленные темы</h3>
 	<form action= "" method= "GET">
-		<input type="text" style="width: 90%" placeholder="Поиск по названию" name="search" value="<? echo isset($_GET['search']) ? $_GET['search'] : ''?>">
+		<input type="text" style="width: 90%" placeholder="Поиск по названию" name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''?>">
 		<input type="submit" class="button" value="Поиск">
 	</form>
 	
@@ -73,11 +73,11 @@
   if (isset($_REQUEST['delete']) && isset($logSESS))
   {
    $adrees=$_REQUEST['delete'];
-   $result = mysql_query("SELECT * FROM `informBD` WHERE `adrees`='$adrees'");
+   $result = mysql_query("SELECT * FROM `informbd` WHERE `adrees`='$adrees'");
    $row = mysql_fetch_array($result);
    $adreesName= $row["adreesName"];
    
-   mysql_query("DELETE FROM `informBD` WHERE `adrees`='$adrees'"); 
+   mysql_query("DELETE FROM `informbd` WHERE `adrees`='$adrees'"); 
   
    $path=$_SERVER['DOCUMENT_ROOT']."/pages/".$adreesName.".html";
 
@@ -107,13 +107,13 @@ if (isset($_GET['search']))
 	$whereSearch = " WHERE name LIKE '%{$_GET['search']}%' ";
 }
 
-$resultCount = mysql_query("SELECT count(pid) AS count FROM informBD {$whereSearch}");
+$resultCount = mysql_query("SELECT count(pid) AS count FROM informbd {$whereSearch}");
 $rowCount = mysql_fetch_array($resultCount);
 $total =  $rowCount['count'];
 
 $pagination = new Pagination($total, $page, $ITEM_LIMIT, '?page=');
 
-$result = mysql_query("SELECT * FROM informBD {$whereSearch} ORDER BY `pid` ASC LIMIT $ITEM_LIMIT OFFSET $offset") or die(mysql_error());
+$result = mysql_query("SELECT * FROM informbd {$whereSearch} ORDER BY `pid` ASC LIMIT $ITEM_LIMIT OFFSET $offset") or die(mysql_error());
 echo "<br>";
 echo "<table>";
 echo "<tr class=\"data\">";
